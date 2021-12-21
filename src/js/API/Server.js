@@ -1,4 +1,4 @@
-import { createServer } from 'http';
+import http from 'http';
 import Koa from 'koa';
 import koaBody from 'koa-body';
 import cors from 'koa2-cors';
@@ -48,5 +48,5 @@ router.post('/changeTicketStatus', async (ctx, next) => {
 app.use(router.routes()).use(router.allowedMethods());
 
 const port = process.env.PORT || 8080;
-const server = createServer(app.callback());
+const server = http.createServer(app.callback());
 server.listen(port, () => console.log('server started'));
