@@ -1,9 +1,9 @@
-import http from 'http';
-import Koa from 'koa';
-import koaBody from 'koa-body';
-import cors from 'koa2-cors';
-import Router from 'koa-router';
-import Tickets from './src/js/API/Tickets';
+const http = require('http');
+const Koa  = require('koa');
+const koaBody = require('koa-body');
+const cors = require('koa2-cors');
+const Router = require('koa-router');
+const Tickets = require('./src/js/API/Tickets');
 
 const app = new Koa();
 const tickets = new Tickets();
@@ -33,16 +33,19 @@ router.get('/ticketById', async (ctx, next) => {
 router.delete('/deleteTicketById', async (ctx, next) => {
   const ticketId = Number(ctx.request.query.id);
   ctx.response.body = tickets.deleteTicket(ticketId);
+  ctx.response.status = 204;
 });
 
 router.post('/createTicket', async (ctx, next) => {
   const { name, description } = ctx.request.query;
   ctx.response.body = tickets.createTicket(name, description);
+  ctx.response.status = 204;
 });
 
 router.post('/changeTicketStatus', async (ctx, next) => {
   const ticketId = Number(ctx.request.query.id);
   ctx.response.body = tickets.changeTicketStatus(ticketId);
+  ctx.response.status = 204;
 });
 
 app.use(router.routes()).use(router.allowedMethods());

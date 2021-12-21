@@ -1,4 +1,4 @@
-export default class Tickets {
+module.exports = class Tickets {
   constructor() {
     this.storage = [
       {
