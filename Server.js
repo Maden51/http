@@ -3,7 +3,7 @@ import Koa from 'koa';
 import koaBody from 'koa-body';
 import cors from 'koa2-cors';
 import Router from 'koa-router';
-import Tickets from './Tickets';
+import Tickets from './src/js/API/Tickets';
 
 const app = new Koa();
 const tickets = new Tickets();
