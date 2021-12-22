@@ -29,7 +29,7 @@ module.exports = class Tickets {
     return this.storage;
   }
 
-  createTicket(name, description) {
+  createTicket(object) {
     try {
       const sorted = this.storage.sort((ticket) => ticket.id);
       const id = sorted[sorted.length - 1].id + 1;
@@ -44,8 +44,8 @@ module.exports = class Tickets {
       this.storage.push({
         id,
         status,
-        name,
-        description,
+        name: object.name,
+        description: object.description,
         fullDate,
       });
       return this.getTicketById(id);
@@ -69,11 +69,11 @@ module.exports = class Tickets {
     });
   }
 
-  editTicket(name, description) {
+  editTicket(object) {
     const ticket = this.storage.find((el) => el.id === id);
     if (ticket) {
-      ticket.name = name;
-      ticket.description = description;
+      ticket.name = object.name;
+      ticket.description = object.description;
       return 'тикет изменён';
     }
     return 'тикет не найден';
