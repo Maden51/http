@@ -5,8 +5,8 @@
   "main": "server.js",
   "scripts": {
     "prestart": "npm install",
-    "start": "forever server.js",
-    "watch": "forever -w server.js"
+    "start": "forever -a server.js",
+    "watch": "forever -a -w server.js"
   },
   "repository": {
     "type": "git",
