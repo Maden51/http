@@ -3,6 +3,8 @@ import Koa from 'koa';
 import koaBody from 'koa-body';
 import cors from 'koa2-cors';
 
+const app = new Koa();
+
 class Tickets {
   constructor() {
     this.tickets = [
@@ -35,7 +37,6 @@ class Tickets {
   }
 
   createTicket(object) {
-    try {
       const sorted = this.tickets.sort((ticket) => ticket.id);
       const id = sorted[sorted.length - 1].id + 1;
       const status = false;
@@ -47,16 +48,12 @@ class Tickets {
       const year = now.getFullYear().toString().slice(2);
       const fullDate = `${day}.${month}.${year} ${hour}:${minutes}`;
       this.tickets.push({
-        id,
-        status,
+        id: id,
+        status: status,
         name: object.name,
         description: object.description,
-        fullDate,
+        created: fullDate,
       });
-      return this.getTicketById(id);
-    } catch (error) {
-      return new Error('Невозможно создать тикет');
-    }
   }
 
   getTicketById(id) {
@@ -75,7 +72,7 @@ class Tickets {
   }
 
   editTicket(object) {
-    const ticket = this.tickets.find((el) => el.id === id);
+    const ticket = this.getTicketById(object.id);
     if (ticket) {
       ticket.name = object.name;
       ticket.description = object.description;
@@ -85,7 +82,6 @@ class Tickets {
   }
 }
 
-const app = new Koa();
 const tickets = new Tickets();
 
 app.use(koaBody({
