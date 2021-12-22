@@ -36,7 +36,7 @@ class Tickets {
 
   createTicket(object) {
     try {
-      const sorted = this.storage.sort((ticket) => ticket.id);
+      const sorted = this.tickets.sort((ticket) => ticket.id);
       const id = sorted[sorted.length - 1].id + 1;
       const status = false;
       const now = new Date();
@@ -46,7 +46,7 @@ class Tickets {
       const minutes = (now.getMinutes() < 10) ? `0${now.getMinutes()}` : now.getMinutes();
       const year = now.getFullYear().toString().slice(2);
       const fullDate = `${day}.${month}.${year} ${hour}:${minutes}`;
-      this.storage.push({
+      this.tickets.push({
         id,
         status,
         name: object.name,
@@ -60,7 +60,7 @@ class Tickets {
   }
 
   getTicketById(id) {
-    return this.storage.find((task) => task.id === id);
+    return this.tickets.find((task) => task.id === id);
   }
 
   changeTicketStatus(id) {
@@ -69,13 +69,13 @@ class Tickets {
   }
 
   deleteTicket(id) {
-    this.storage.forEach((ticket, index) => {
-      if (ticket.id === id) this.storage.splice(index, 1);
+    this.tickets.forEach((ticket, index) => {
+      if (ticket.id === id) this.tickets.splice(index, 1);
     });
   }
 
   editTicket(object) {
-    const ticket = this.storage.find((el) => el.id === id);
+    const ticket = this.tickets.find((el) => el.id === id);
     if (ticket) {
       ticket.name = object.name;
       ticket.description = object.description;
