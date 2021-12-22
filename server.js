@@ -66,9 +66,11 @@ class Tickets {
   }
 
   deleteTicket(id) {
-    this.tickets.forEach((ticket, index) => {
-      if (ticket.id === id) this.tickets.splice(index, 1);
-    });
+    const ticketIndex = this.tickets.findIndex((el) => el.id === id);
+    if (ticketIndex !== -1) {
+      this.tickets.splice(ticketIndex, 1);
+      return 'удалено';
+    }
   }
 
   editTicket(object) {
