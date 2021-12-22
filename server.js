@@ -133,7 +133,7 @@ app.use(async (ctx, next) => {
 
 app.use(async (ctx) => {
   let method;
-  conlose.log(ctx.request.query);
+  console.log(ctx.request.query);
   if (ctx.request.method === 'GET') ({ method, id } = ctx.request.query);
   else if (ctx.request.method === 'POST') ({ method, object } = ctx.request.body);
 
