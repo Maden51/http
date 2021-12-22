@@ -68,4 +68,14 @@ module.exports = class Tickets {
       if (ticket.id === id) this.storage.splice(index, 1);
     });
   }
+
+  editTicket(name, description) {
+    const ticket = this.storage.find((el) => el.id === id);
+    if (ticket) {
+      ticket.name = name;
+      ticket.description = description;
+      return 'тикет изменён';
+    }
+    return 'тикет не найден';
+  }
 }

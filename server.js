@@ -48,6 +48,12 @@ router.post('/changeTicketStatus', async (ctx, next) => {
   ctx.response.status = 204;
 });
 
+router.post('/editTicket', async (ctx, next) => {
+  const { name, description } = ctx.request.query;
+  ctx.response.boyd = tickets.editTicket(name, description);
+  ctx.response.status = 204; 
+})
+
 app.use(router.routes()).use(router.allowedMethods());
 
 const port = process.env.PORT || 8080;
