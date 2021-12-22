@@ -154,10 +154,11 @@ switch (method) {
   break;
   default:
     ctx.response.status = 400;
-    ctx.response.body = `Unknown method '${method}' un request parameteres`
+    ctx.response.body = `Unknown method '${method}' un request parameteres`;
 }
+});
 
 const port = process.env.PORT || 8080;
 const server = createServer(app.callback());
 server.listen(port, () => console.log('server started'));
-});
+
