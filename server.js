@@ -1,7 +1,7 @@
-const http = require('http');
-const Koa  = require('koa');
-const koaBody = require('koa-body');
-const cors = require('koa2-cors');
+import { createServer } from 'http';
+import Koa from 'koa';
+import koaBody from 'koa-body';
+import cors from 'koa2-cors';
 
 class Tickets {
   constructor() {
@@ -162,6 +162,6 @@ switch (method) {
 }
 
 const port = process.env.PORT || 8080;
-const server = http.createServer(app.callback());
+const server = createServer(app.callback());
 server.listen(port, () => console.log('server started'));
 });
