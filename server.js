@@ -59,7 +59,7 @@ app.use(async (ctx) => {
   conlose.log(ctx.request.query);
   if (ctx.request.method === 'GET') ({ method, id } = ctx.request.query);
   else if (ctx.request.method === 'POST') ({ method, object } = ctx.request.body);
-})
+
 
 ctx.response.status = 200;
 switch (method) {
@@ -83,3 +83,4 @@ switch (method) {
 const port = process.env.PORT || 8080;
 const server = http.createServer(app.callback());
 server.listen(port, () => console.log('server started'));
+});
