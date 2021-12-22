@@ -16,6 +16,10 @@ app.use(koaBody({
   json: true,
 }));
 
+router.get('/apiVersion', async (ctx, next) => {
+  ctx.response.body = '10 - clear comments';
+});
+
 router.get('/allTickets', async (ctx, next) => {
   ctx.response.body = tickets.storage.map((item) => ({
     id: item.id,
@@ -50,7 +54,7 @@ router.post('/changeTicketStatus', async (ctx, next) => {
 
 router.post('/editTicket', async (ctx, next) => {
   const { name, description } = ctx.request.query;
-  ctx.response.boyd = tickets.editTicket(name, description);
+  ctx.response.body = tickets.editTicket(name, description);
   ctx.response.status = 204; 
 })
 
