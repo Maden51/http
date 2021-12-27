@@ -57,12 +57,25 @@ class Tickets {
   }
 
   getTicketById(id) {
-    return this.tickets.find((task) => task.id === id);
+    const ticket = this.tickets.find((el) => el.id === id);
+    if (ticket) {
+      return ticket;
+    } else {
+      return 'тикет не найден';
+    }
   }
 
-  changeTicketStatus(id) {
-    const ticket = this.getTicketById(id);
-    ticket.status = ticket.status === true ? ticket.status = false : ticket.status = true;
+  changeStatus(id) {
+    const ticket = this.tickets.find((el) => el.id === id);
+    if (ticket) {
+      if (ticket.status === false) {
+        ticket.status = true;
+      } else {
+        ticket.status = false;
+      }
+      return 'статус изменен';
+    }
+    return 'тикет не найден';
   }
 
   deleteTicket(id) {
@@ -71,14 +84,15 @@ class Tickets {
       this.tickets.splice(ticketIndex, 1);
       return 'удалено';
     }
+    return 'тикет не найден';
   }
 
-  editTicket(object) {
-    const ticket = this.getTicketById(object.id);
+  updateTicket(object) {
+    const ticket = this.tickets.find((el) => el.id === id);
     if (ticket) {
       ticket.name = object.name;
       ticket.description = object.description;
-      return 'тикет изменён';
+      return 'тикет изменен';
     }
     return 'тикет не найден';
   }
@@ -108,7 +122,8 @@ app.use(async (ctx, next) => {
     return await next();
   }
 
-  const headers = { 'Access-Control-Allow-Origin': '*' };
+  const headers = { 'Access-Control-Allow-Origin': '*', };
+
   if (ctx.request.method !== 'OPTIONS') {
     ctx.response.set({...headers});
     try {
@@ -122,11 +137,11 @@ app.use(async (ctx, next) => {
   if (ctx.request.get('Access-Control-Request-Method')) {
     ctx.response.set({
       ...headers,
-      'Access-Control-Allow-Origin': 'GET, POST, PUT, DELETE, PATCH',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH',
     });
 
-    if (ctx.request.get('Access-Control-Allow-Origin')) {
-      ctx.response.set('Access-Control-Allow-Origin', ctx.request.get('Access-Control-Allow-Origin'));
+    if (ctx.request.get('Access-Control-Request-Headers')) {
+      ctx.response.set('Access-Control-Allow-Headers', ctx.request.get('Access-Control-Request-Headers'));
     }
 
     ctx.response.status = 204;
