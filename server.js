@@ -7,32 +7,10 @@ const app = new Koa();
 
 class Tickets {
   constructor() {
-    this.tickets = [
-      {
-        id: 0,
-        name: 'Поменять краску в принтереб ком. 404',
-        description: 'Принтер HP LJ 1210, картриджи на складе',
-        status: true,
-        created: '10.03.19 08:40',
-      },
-      {
-        id: 1,
-        name: 'Переустановить Windows, ПК-Hall24',
-        description: 'Диск с лицензией Windows 11 в офисе, на верхней полке',
-        status: false,
-        created: '15.03.19 12:35',
-      },
-      {
-        id: 2,
-        name: 'Установить обновление КВ-XXX',
-        description: 'Перезагрузить компьютер',
-        status: false,
-        created: '15.03.19 12:40',
-      },
-    ];
+    this.tickets = [];
   }
 
-  allTickets() {
+  getTickets() {
     return this.tickets;
   }
 
@@ -109,7 +87,30 @@ app.use(
   }),
 );
 
-const tickets = new Tickets();
+const ticketsCtrl = new Tickets();
+ticketsCtrl = [
+  {
+    id: 0,
+    name: 'Поменять краску в принтереб ком. 404',
+    description: 'Принтер HP LJ 1210, картриджи на складе',
+    status: true,
+    created: '10.03.19 08:40',
+  },
+  {
+    id: 1,
+    name: 'Переустановить Windows, ПК-Hall24',
+    description: 'Диск с лицензией Windows 11 в офисе, на верхней полке',
+    status: false,
+    created: '15.03.19 12:35',
+  },
+  {
+    id: 2,
+    name: 'Установить обновление КВ-XXX',
+    description: 'Перезагрузить компьютер',
+    status: false,
+    created: '15.03.19 12:40',
+  },
+];
 
 
 app.use(async (ctx, next) => {
@@ -154,7 +155,7 @@ app.use(async (ctx) => {
 
   ctx.response.status = 200;
   switch (method) {
-    case 'allTickets': ctx.response.body = tickets.allTickets();
+    case 'allTickets': ctx.response.body = tickets.getTickets();
       break;
     case 'ticketById': ctx.response.body = tickets.getTicketById(id);
       break;
