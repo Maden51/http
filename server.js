@@ -88,7 +88,7 @@ app.use(
 );
 
 const ticketsCtrl = new Tickets();
-ticketsCtrl = [
+ticketsCtrl.tickets = [
   {
     id: 0,
     name: 'Поменять краску в принтереб ком. 404',
