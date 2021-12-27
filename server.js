@@ -87,30 +87,6 @@ app.use(
 );
 
 const ticketsCtrl = new Tickets();
-ticketsCtrl.tickets = [
-  {
-    id: 0,
-    name: 'Поменять краску в принтереб ком. 404',
-    description: 'Принтер HP LJ 1210, картриджи на складе',
-    status: true,
-    created: new Date(),
-  },
-  {
-    id: 1,
-    name: 'Переустановить Windows, ПК-Hall24',
-    description: 'Диск с лицензией Windows 11 в офисе, на верхней полке',
-    status: false,
-    created: new Date(),
-  },
-  {
-    id: 2,
-    name: 'Установить обновление КВ-XXX',
-    description: 'Перезагрузить компьютер',
-    status: false,
-    created: new Date(),
-  },
-];
-
 
 app.use(async (ctx, next) => {
   const origin = ctx.request.get('Origin');
