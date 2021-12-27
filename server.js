@@ -116,6 +116,7 @@ app.use(
   }),
 );
 
+
 app.use(async (ctx, next) => {
   const origin = ctx.request.get('Origin');
   if (!origin) {
@@ -151,31 +152,37 @@ app.use(async (ctx, next) => {
 app.use(async (ctx) => {
   let method;
   console.log(ctx.request.query);
+  
   if (ctx.request.method === 'GET') ({ method, id } = ctx.request.query);
   else if (ctx.request.method === 'POST') ({ method, object } = ctx.request.body);
+  
 
-
-ctx.response.status = 200;
-switch (method) {
-  case 'allTickets': ctx.response.body = tickets.allTickets();
-  break;
-  case 'ticketById': ctx.response.body = tickets.getTicketById(id);
-  break;
-  case 'changeTicketStatus': ctx.response.body = tickets.changeTicketStatus(object.id);
-  break;
-  case 'createTicket': ctx.response.body = tickets.createTicket(object);
-  break;
-  case 'editTicket': ctx.response.body = tickets.editTicket(object);
-  break;
-  case 'deleteTicketById': ctx.response.body = tickets.deleteTicket(object.id);
-  break;
-  default:
-    ctx.response.status = 400;
-    ctx.response.body = `Unknown method '${method}' un request parameteres`;
-}
+  ctx.response.status = 200;
+  switch (method) {
+    case 'allTickets': ctx.response.body = ticketsCtrl.getTickets();
+      break;
+    case 'ticketById': ctx.response.body = ticketsCtrl.getTicketById(id);
+      break;
+    case 'createTicket': ctx.response.body = ticketsCtrl.createTicket(object);
+      break;
+    case 'changeStatus': ctx.response.body = ticketsCtrl.changeStatus(object.id);
+      break;
+    case 'updateTicket': ctx.response.body = ticketsCtrl.updateTicket(object);
+      break;
+    case 'deleteTicket': ctx.response.body = ticketsCtrl.deleteTicket(object.id);
+      break;
+    default:
+      ctx.response.status = 400;
+      ctx.response.body = `Unknown method '${method}' in request parameters`;
+  }
 });
 
 const port = process.env.PORT || 8080;
 const server = http.createServer(app.callback());
-server.listen(port, () => console.log('server started'));
-
+server.listen(port, (error) => {
+  if (error) {
+    console.log('Error occured:', error);
+    return;
+  }
+  console.log(`Server is listening on ${port} port`);
+});
