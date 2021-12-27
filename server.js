@@ -159,7 +159,7 @@ app.use(async (ctx) => {
 
   ctx.response.status = 200;
   switch (method) {
-    case 'allTickets': ctx.response.body = tickets.getTickets();
+    case 'allTickets': ctx.response.body = tickets.allTickets();
       break;
     case 'ticketById': ctx.response.body = tickets.getTicketById(id);
       break;
