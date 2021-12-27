@@ -159,17 +159,17 @@ app.use(async (ctx) => {
 
   ctx.response.status = 200;
   switch (method) {
-    case 'allTickets': ctx.response.body = ticketsCtrl.getTickets();
+    case 'allTickets': ctx.response.body = tickets.getTickets();
       break;
-    case 'ticketById': ctx.response.body = ticketsCtrl.getTicketById(id);
+    case 'ticketById': ctx.response.body = tickets.getTicketById(id);
       break;
-    case 'createTicket': ctx.response.body = ticketsCtrl.createTicket(object);
+    case 'createTicket': ctx.response.body = tickets.createTicket(object);
       break;
-    case 'changeStatus': ctx.response.body = ticketsCtrl.changeStatus(object.id);
+    case 'changeStatus': ctx.response.body = tickets.changeStatus(object.id);
       break;
-    case 'updateTicket': ctx.response.body = ticketsCtrl.updateTicket(object);
+    case 'updateTicket': ctx.response.body = tickets.updateTicket(object);
       break;
-    case 'deleteTicket': ctx.response.body = ticketsCtrl.deleteTicket(object.id);
+    case 'deleteTicket': ctx.response.body = tickets.deleteTicket(object.id);
       break;
     default:
       ctx.response.status = 400;
