@@ -2,6 +2,7 @@ const http = require ('http');
 const Koa =  require('koa');
 const koaBody = require ('koa-body');
 const cors = require('koa2-cors');
+const uuid = require('uuid');
 
 const app = new Koa();
 
@@ -15,10 +16,8 @@ class Tickets {
   }
 
   createTicket(object) {
-    const sorted = this.tickets.sort((ticket) => ticket.id);
-    const id = sorted[sorted.length - 1].id + 1;
     this.tickets.push({
-      id: id,
+      id: uuid.v4(),
       name: object.name,
       description: object.description,
       status: false,
