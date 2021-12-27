@@ -37,24 +37,17 @@ class Tickets {
   }
 
   createTicket(object) {
-      const sorted = this.tickets.sort((ticket) => ticket.id);
-      const id = sorted[sorted.length - 1].id + 1;
-      const status = false;
-      const now = new Date();
-      const day = (now.getDate() < 10) ? `0${now.getDate()}` : now.getDate();
-      const month = ((now.getMonth() + 1) < 10) ? `0${now.getMonth() + 1}` : now.getMonth() + 1;
-      const hour = (now.getHours() < 10) ? `0${now.getHours()}` : now.getHours();
-      const minutes = (now.getMinutes() < 10) ? `0${now.getMinutes()}` : now.getMinutes();
-      const year = now.getFullYear().toString().slice(2);
-      const fullDate = `${day}.${month}.${year} ${hour}:${minutes}`;
-      this.tickets.push({
-        id: id,
-        status: status,
-        name: object.name,
-        description: object.description,
-        created: fullDate,
-      });
+    const sorted = this.tickets.sort((ticket) => ticket.id);
+    const id = sorted[sorted.length - 1].id + 1;
+    this.tickets.push({
+      id: id,
+      name: object.name,
+      description: object.description,
+      status: false,
+      created: new Date(),
+    });
   }
+
 
   getTicketById(id) {
     const ticket = this.tickets.find((el) => el.id === id);
@@ -78,6 +71,7 @@ class Tickets {
     return 'тикет не найден';
   }
 
+
   deleteTicket(id) {
     const ticketIndex = this.tickets.findIndex((el) => el.id === id);
     if (ticketIndex !== -1) {
@@ -98,7 +92,6 @@ class Tickets {
   }
 }
 
-const tickets = new Tickets();
 
 app.use(koaBody({
   urlencoded: true,
@@ -115,6 +108,8 @@ app.use(
     allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   }),
 );
+
+const tickets = new Tickets();
 
 
 app.use(async (ctx, next) => {
